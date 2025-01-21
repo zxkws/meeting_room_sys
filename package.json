@@ -1,0 +1,28 @@
+{
+  "name": "meeting_room_sys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "pnpm --filter backend start",
+    "start:frontend": "pnpm --filter frontend start",
+    "build:backend": "pnpm --filter backend build",
+    "build:frontend": "pnpm --filter frontend build",
+    "test:backend": "pnpm --filter backend test",
+    "test:frontend": "pnpm --filter frontend test",
+    "format": "prettier --write \"packages/**/*.{ts,tsx}\"",
+    "lint": "eslint \"packages/**/*.{ts,tsx}\" --fix"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "typescript": "^5.7.3",
+    "@typescript-eslint/parser":"^8.21.0",
+    "@typescript-eslint/eslint-plugin":"^8.21.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
