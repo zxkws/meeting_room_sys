@@ -1,0 +1,40 @@
+name: deploy_gh_pages
+
+on:
+  push:
+    branches:
+    - main
+    paths-ignore:
+      - README.md
+      - backend/**
+
+jobs:
+  my_job:
+    name: deploy to staging
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Install Dependencies
+        run: |
+          npm i pnpm -g
+          pnpm install
+          pnpm --filter frontend build
+
+      - name: Deploy to GitHub Pages
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+            git config --global user.name "${{ secrets.MY_USER_NAME }}"
+            git config --global user.email "${{ secrets.MY_USER_EMAIL }}"
+            git checkout --orphan gh-pages
+            git rm -rf .
+            mv packages/frontend/dist/* .
+            git add .
+            git commit -m "Deploy to GitHub Pages"
+            git push -f origin gh-pages

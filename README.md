@@ -1,14 +1,4 @@
 
-## 前后端项目monorepo仓库模版
-```bash
-cd packages
-nest new backend
+## 学习会议室预订系统
 
-cd packages
-npx create-react-app frontend
-
-```
-为子项目配置
-```json
-"extends": "../../tsconfig.json",
-````
+[![deploy_gh_pages](https://github.com/zxkws/meeting_room_sys/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/zxkws/meeting_room_sys/actions/workflows/main.yml)
