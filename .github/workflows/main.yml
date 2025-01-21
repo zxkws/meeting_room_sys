@@ -53,6 +53,8 @@ jobs:
             git checkout --orphan gh-pages
             git rm -rf .
             mv packages/frontend/dist/* .
+            rm -rf node_modules packages
+            cp index.html 404.html
             touch .nojekyll
             git add .
             git commit -m "Deploy to GitHub Pages"
