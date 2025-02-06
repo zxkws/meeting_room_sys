@@ -1,3 +1,4 @@
+version: '3.8'
 services:
   meeting_room_booking_system:
     build:
