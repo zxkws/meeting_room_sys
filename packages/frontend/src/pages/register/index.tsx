@@ -55,6 +55,7 @@ export function Register() {
         });
       }, 1000);
     } catch (error) {
+      console.error('验证码发送失败:', error);
       message.error('验证码发送失败，请重试！');
     } finally {
       setSendingCaptcha(false);
@@ -68,26 +69,16 @@ export function Register() {
           <h2 className="text-2xl font-bold">注册账号</h2>
         </div>
 
-        <Form
-          form={form}
-          name="register"
-          onFinish={onFinish}
-          autoComplete="off"
-          layout="vertical"
-        >
+        <Form form={form} name="register" onFinish={onFinish} autoComplete="off" layout="vertical">
           <Form.Item
             name="username"
             rules={[
               { required: true, message: '请输入用户名！' },
               { min: 6, message: '用户名长度至少6位！' },
-              { max: 20, message: '用户名长度不能超过20位！' }
+              { max: 20, message: '用户名长度不能超过20位！' },
             ]}
           >
-            <Input
-              prefix={<UserOutlined />}
-              placeholder="用户名"
-              size="large"
-            />
+            <Input prefix={<UserOutlined />} placeholder="用户名" size="large" />
           </Form.Item>
 
           <Form.Item
@@ -95,14 +86,10 @@ export function Register() {
             rules={[
               { required: true, message: '请输入昵称！' },
               { min: 6, message: '昵称长度至少6位！' },
-              { max: 20, message: '昵称长度不能超过20位！' }
+              { max: 20, message: '昵称长度不能超过20位！' },
             ]}
           >
-            <Input
-              prefix={<UserOutlined />}
-              placeholder="昵称"
-              size="large"
-            />
+            <Input prefix={<UserOutlined />} placeholder="昵称" size="large" />
           </Form.Item>
 
           <Form.Item
@@ -110,14 +97,10 @@ export function Register() {
             rules={[
               { required: true, message: '请输入密码！' },
               { min: 6, message: '密码长度至少6位！' },
-              { max: 20, message: '密码长度不能超过20位！' }
+              { max: 20, message: '密码长度不能超过20位！' },
             ]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="密码"
-              size="large"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="密码" size="large" />
           </Form.Item>
 
           <Form.Item
@@ -135,43 +118,23 @@ export function Register() {
               }),
             ]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="确认密码"
-              size="large"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="确认密码" size="large" />
           </Form.Item>
 
           <Form.Item
             name="email"
             rules={[
               { required: true, message: '请输入邮箱！' },
-              { type: 'email', message: '请输入有效的邮箱地址！' }
+              { type: 'email', message: '请输入有效的邮箱地址！' },
             ]}
           >
-            <Input
-              prefix={<MailOutlined />}
-              placeholder="邮箱"
-              size="large"
-            />
+            <Input prefix={<MailOutlined />} placeholder="邮箱" size="large" />
           </Form.Item>
 
-          <Form.Item
-            name="captcha"
-            rules={[{ required: true, message: '请输入验证码！' }]}
-          >
+          <Form.Item name="captcha" rules={[{ required: true, message: '请输入验证码！' }]}>
             <div className="flex gap-4">
-              <Input
-                placeholder="验证码"
-                size="large"
-              />
-              <Button
-                type="primary"
-                onClick={sendCaptcha}
-                loading={sendingCaptcha}
-                disabled={countdown > 0}
-                size="large"
-              >
+              <Input placeholder="验证码" size="large" />
+              <Button type="primary" onClick={sendCaptcha} loading={sendingCaptcha} disabled={countdown > 0} size="large">
                 {countdown > 0 ? `${countdown}秒后重试` : '发送验证码'}
               </Button>
             </div>

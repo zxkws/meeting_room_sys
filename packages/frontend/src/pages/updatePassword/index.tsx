@@ -16,14 +16,14 @@ export function UpdatePassword() {
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
     form.setFieldsValue({
-      email: userInfo?.email
+      email: userInfo?.email,
     });
   }, []);
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
     if (countdown > 0) {
       timer = setInterval(() => {
-        setCountdown(c => c - 1);
+        setCountdown((c) => c - 1);
       }, 1000);
     }
     return () => clearInterval(timer);
@@ -63,42 +63,21 @@ export function UpdatePassword() {
           <h2 className="text-2xl font-bold">重置密码</h2>
         </div>
 
-        <Form
-          form={form}
-          name="updatePassword"
-          onFinish={onFinish}
-          autoComplete="off"
-          layout="vertical"
-        >
+        <Form form={form} name="updatePassword" onFinish={onFinish} autoComplete="off" layout="vertical">
           <Form.Item
             name="email"
-
             rules={[
               { required: true, message: '请输入邮箱地址！' },
-              { type: 'email', message: '请输入有效的邮箱地址！' }
+              { type: 'email', message: '请输入有效的邮箱地址！' },
             ]}
           >
-            <Input
-              prefix={<MailOutlined />}
-              placeholder="邮箱地址"
-              size="large"
-            />
+            <Input prefix={<MailOutlined />} placeholder="邮箱地址" size="large" />
           </Form.Item>
 
-          <Form.Item
-            name="captcha"
-            rules={[{ required: true, message: '请输入验证码！' }]}
-          >
+          <Form.Item name="captcha" rules={[{ required: true, message: '请输入验证码！' }]}>
             <div className="flex gap-2">
-              <Input
-                placeholder="验证码"
-                size="large"
-              />
-              <Button
-                size="large"
-                onClick={sendVerificationCode}
-                disabled={countdown > 0}
-              >
+              <Input placeholder="验证码" size="large" />
+              <Button size="large" onClick={sendVerificationCode} disabled={countdown > 0}>
                 {countdown > 0 ? `${countdown}秒后重试` : '发送验证码'}
               </Button>
             </div>
@@ -108,14 +87,10 @@ export function UpdatePassword() {
             name="password"
             rules={[
               { required: true, message: '请输入新密码！' },
-              { min: 6, message: '密码长度至少6位！' }
+              { min: 6, message: '密码长度至少6位！' },
             ]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="新密码"
-              size="large"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="新密码" size="large" />
           </Form.Item>
 
           <Form.Item
@@ -133,11 +108,7 @@ export function UpdatePassword() {
               }),
             ]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              placeholder="确认新密码"
-              size="large"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="确认新密码" size="large" />
           </Form.Item>
 
           <Form.Item>

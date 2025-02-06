@@ -30,10 +30,9 @@ export const getUserList = (data: {
   nickName?: string;
   page?: number;
   pageSize?: number;
-}): Promise<{total: number; users: Array<UserData>}> => {
+}): Promise<{ total: number; users: Array<UserData> }> => {
   return http.post('/user/list', data);
 };
-
 
 export const freezeUser = (id: string) => {
   return http.post('/user/freeze', { id });

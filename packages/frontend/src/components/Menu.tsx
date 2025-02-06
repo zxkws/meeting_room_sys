@@ -1,18 +1,14 @@
-import { Outlet } from "react-router-dom";
-import { Layout, Menu as AntMenu } from "antd";
-import { CalendarOutlined, HomeOutlined, BarChartOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
+import { Layout, Menu as AntMenu } from 'antd';
+import { CalendarOutlined, HomeOutlined, BarChartOutlined, UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Sider, Content } = Layout;
 
 export const Menu = () => {
   return (
     <Layout className="min-h-screen">
-      <Sider
-        theme="light"
-        className="shadow-md"
-        width={220}
-      >
+      <Sider theme="light" className="shadow-md" width={220}>
         <AntMenu
           mode="inline"
           defaultSelectedKeys={['1']}

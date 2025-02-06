@@ -24,10 +24,10 @@ export const UpdateUserInfo = () => {
   };
 
   const uploadProps: UploadProps = {
-    listType: "picture-circle",
+    listType: 'picture-circle',
     action: 'https://api.stardots.io/openapi/file/upload',
     headers: {
-      'x-stardots-timestamp': Math.floor(Date.now()/1000).toString(),
+      'x-stardots-timestamp': Math.floor(Date.now() / 1000).toString(),
       'x-stardots-nonce': Math.random().toString().substring(2),
       'x-stardots-key': '92270d0b-e3a1-4aa6-8e55-c89d90668121',
       'x-stardots-sign': '123456',
@@ -93,7 +93,7 @@ export const UpdateUserInfo = () => {
         layout="vertical"
         onFinish={onFinish}
         initialValues={{
-          ...JSON.parse(localStorage.getItem('userInfo') || '{}')
+          ...JSON.parse(localStorage.getItem('userInfo') || '{}'),
         }}
       >
         <Form.Item label="头像">
@@ -102,11 +102,7 @@ export const UpdateUserInfo = () => {
           </Upload>
         </Form.Item>
 
-        <Form.Item
-          name="nickname"
-          label="昵称"
-          rules={[{ required: false, message: '请输入昵称！' }]}
-        >
+        <Form.Item name="nickname" label="昵称" rules={[{ required: false, message: '请输入昵称！' }]}>
           <Input prefix={<UserOutlined />} placeholder="请输入昵称" />
         </Form.Item>
 
@@ -115,25 +111,16 @@ export const UpdateUserInfo = () => {
           label="邮箱"
           rules={[
             { required: true, message: '请输入邮箱！' },
-            { type: 'email', message: '请输入有效的邮箱地址！' }
+            { type: 'email', message: '请输入有效的邮箱地址！' },
           ]}
         >
           <Input prefix={<MailOutlined />} placeholder="请输入邮箱" />
         </Form.Item>
 
-        <Form.Item
-          name="captcha"
-          label="验证码"
-          rules={[{ required: true, message: '请输入验证码！' }]}
-        >
+        <Form.Item name="captcha" label="验证码" rules={[{ required: true, message: '请输入验证码！' }]}>
           <Space.Compact style={{ width: '100%' }}>
-            <Input
-              placeholder="请输入验证码"
-            />
-            <Button
-              disabled={countdown > 0}
-              onClick={handleGetVerificationCode}
-            >
+            <Input placeholder="请输入验证码" />
+            <Button disabled={countdown > 0} onClick={handleGetVerificationCode}>
               {countdown > 0 ? `${countdown}秒后重试` : '获取验证码'}
             </Button>
           </Space.Compact>
@@ -144,7 +131,7 @@ export const UpdateUserInfo = () => {
           label="手机号"
           rules={[
             { required: false, message: '请输入手机号！' },
-            { pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号！' }
+            { pattern: /^1[3-9]\d{9}$/, message: '请输入有效的手机号！' },
           ]}
         >
           <Input prefix={<PhoneOutlined />} placeholder="请输入手机号" />

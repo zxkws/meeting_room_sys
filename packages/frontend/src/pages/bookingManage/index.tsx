@@ -1,8 +1,8 @@
-import { getBookingList } from "@/services/booking";
-import {Button, Table} from "antd";
+import { getBookingList } from '@/services/booking';
+import { Button, Table } from 'antd';
 
-import type { ColumnsType } from "antd/es/table";
-import { useEffect, useState } from "react";
+import type { ColumnsType } from 'antd/es/table';
+import { useEffect, useState } from 'react';
 
 interface BookingSearchResult {
   id: number;
@@ -52,12 +52,15 @@ const columns: ColumnsType<BookingSearchResult> = [
   },
   {
     title: '操作',
-    render: (record) => <Button type="primary" onClick={() => handleEdit(record)}>编辑</Button>,
+    render: (record) => (
+      <Button type="primary" onClick={() => handleEdit(record)}>
+        编辑
+      </Button>
+    ),
   },
 ];
 
 export const BookingManage = () => {
-
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
@@ -84,16 +87,19 @@ export const BookingManage = () => {
         <div>111</div>
         <div>2222</div>
       </div>
-      <Table columns={columns} dataSource={dataSource} pagination={{
-        current: page,
-        pageSize: pageSize,
-        total: total,
-        onChange: changePage,
-      }} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        pagination={{
+          current: page,
+          pageSize: pageSize,
+          total: total,
+          onChange: changePage,
+        }}
+      />
     </div>
   );
 };
 function handleEdit(record: BookingSearchResult): void {
   console.log(record);
 }
-

@@ -29,8 +29,8 @@ export function UserList() {
     pagination: {
       current: 1,
       pageSize: 10,
-      total: 0
-    }
+      total: 0,
+    },
   });
 
   const handleSearch = async (values: SearchParams = {}) => {
@@ -39,16 +39,16 @@ export function UserList() {
       const response = await getUserList({
         ...values,
         page: tableParams.pagination?.current,
-        pageSize: tableParams.pagination?.pageSize
+        pageSize: tableParams.pagination?.pageSize,
       });
       const { users, total } = response;
       setUserData(users);
-      setTableParams(prev => ({
+      setTableParams((prev) => ({
         ...prev,
         pagination: {
           ...prev.pagination,
-          total
-        }
+          total,
+        },
       }));
     } catch (error) {
       console.error('获取用户列表失败:', error);
@@ -105,7 +105,9 @@ export function UserList() {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="link" onClick={() => handleFreeze(record.id)}>冻结</Button>
+          <Button type="link" onClick={() => handleFreeze(record.id)}>
+            冻结
+          </Button>
         </Space>
       ),
     },
@@ -113,44 +115,22 @@ export function UserList() {
 
   return (
     <Card title="用户列表">
-      <Form<SearchParams>
-        form={form}
-        layout="inline"
-        onFinish={handleSearch}
-        style={{ marginBottom: 16 }}
-      >
+      <Form<SearchParams> form={form} layout="inline" onFinish={handleSearch} style={{ marginBottom: 16 }}>
         <Form.Item name="username">
-          <Input
-            placeholder="用户名"
-            allowClear
-          />
+          <Input placeholder="用户名" allowClear />
         </Form.Item>
         <Form.Item name="email">
-          <Input
-            placeholder="邮箱"
-            allowClear
-          />
+          <Input placeholder="邮箱" allowClear />
         </Form.Item>
         <Form.Item name="nickName">
-          <Input
-            placeholder="昵称"
-            allowClear
-          />
+          <Input placeholder="昵称" allowClear />
         </Form.Item>
         <Form.Item name="phoneNumber">
-          <Input
-            placeholder="手机号"
-            allowClear
-          />
+          <Input placeholder="手机号" allowClear />
         </Form.Item>
         <Form.Item>
           <Space>
-            <Button
-              type="primary"
-              icon={<SearchOutlined />}
-              htmlType="submit"
-              loading={loading}
-            >
+            <Button type="primary" icon={<SearchOutlined />} htmlType="submit" loading={loading}>
               搜索
             </Button>
             <Button
@@ -165,13 +145,7 @@ export function UserList() {
         </Form.Item>
       </Form>
 
-      <Table
-        columns={columns}
-        dataSource={userData}
-        rowKey="id"
-        loading={loading}
-        pagination={tableParams.pagination}
-      />
+      <Table columns={columns} dataSource={userData} rowKey="id" loading={loading} pagination={tableParams.pagination} />
     </Card>
   );
 }

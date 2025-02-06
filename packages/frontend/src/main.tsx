@@ -1,66 +1,65 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { Register } from '@pages/register';
 import { Login } from '@pages/login';
 import { UpdatePassword } from '@pages/updatePassword';
 import { ErrorPage } from '@components/ErrorPage.tsx';
 import { UpdateUserInfo } from '@pages/updateUserInfo';
-import { Home } from '@pages/home'
+import { Home } from '@pages/home';
 import { UserList } from '@pages/UserList';
 import { Menu } from './components/Menu';
 import { BookingManage } from './pages/bookingManage';
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Home />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Menu />,
         children: [
           {
-            path: "/",
+            path: '/',
             element: <Navigate to="./userList" />,
           },
           {
-            path: "userList",
+            path: 'userList',
             element: <UserList />,
           },
           {
-            path: "update_password",
+            path: 'update_password',
             element: <UpdatePassword />,
           },
           {
-            path: "update",
+            path: 'update',
             element: <UpdateUserInfo />,
           },
           {
-            path: "bookManage",
+            path: 'bookManage',
             element: <BookingManage />,
-          }
-        ]
-      }
-    ]
+          },
+        ],
+      },
+    ],
   },
   {
-    path: "login",
+    path: 'login',
     element: <Login />,
   },
   {
-    path: "register",
+    path: 'register',
     element: <Register />,
   },
-
-]
-const router = createBrowserRouter(routes, {basename: import.meta.env.BASE_URL});
+];
+const router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL });
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </StrictMode>,
-)
+);
