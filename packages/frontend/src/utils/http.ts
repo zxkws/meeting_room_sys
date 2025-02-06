@@ -3,7 +3,7 @@ import { refreshToken } from '../services/auth';
 import { message } from 'antd';
 
 const instance = axios.create({
-  baseURL: '/api',
+  baseURL: process.env.NODE_ENV ? 'https://backend.lookli.nyc.mn/api' : '/api',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
