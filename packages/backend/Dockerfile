@@ -14,7 +14,7 @@ COPY . .
 
 RUN pnpm build
 
-RUN ls -l
+RUN ls -la
 
 FROM node:23-alpine3.19 AS production-stage
 
@@ -29,7 +29,7 @@ RUN npm install pnpm -g
 
 RUN pnpm install
 
-RUN ls -l
+RUN ls -la
 
 EXPOSE 3000
 
