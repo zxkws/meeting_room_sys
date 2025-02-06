@@ -13,6 +13,16 @@ export const updateUserPassword = (data: UserUpdatePasswordParams) => {
   return http.post('/user/update-password', data);
 };
 
+export interface UserData {
+  id: string;
+  username: string;
+  email: string;
+  nickName: string;
+  phoneNumber: string;
+  role: string;
+  createdAt: string;
+}
+
 export const getUserList = (data: {
   username?: string;
   email?: string;
@@ -20,8 +30,8 @@ export const getUserList = (data: {
   nickName?: string;
   page?: number;
   pageSize?: number;
-}) => {
-  return http.get('/user/list', { params: data });
+}): Promise<{total: number; users: Array<UserData>}> => {
+  return http.post('/user/list', data);
 };
 
 

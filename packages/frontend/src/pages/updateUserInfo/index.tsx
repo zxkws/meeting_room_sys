@@ -24,8 +24,19 @@ export const UpdateUserInfo = () => {
   };
 
   const uploadProps: UploadProps = {
+    listType: "picture-circle",
+    action: 'https://api.stardots.io/openapi/file/upload',
+    headers: {
+      'x-stardots-timestamp': Math.floor(Date.now()/1000).toString(),
+      'x-stardots-nonce': Math.random().toString().substring(2),
+      'x-stardots-key': '92270d0b-e3a1-4aa6-8e55-c89d90668121',
+      'x-stardots-sign': '123456',
+      'Content-Type': 'multipart/form-data',
+    },
+    multiple: false,
+    method: 'PUT',
     name: 'headPic',
-    showUploadList: false,
+    showUploadList: true,
     beforeUpload: beforeUpload,
     onChange: (info) => {
       if (info.file.status === 'done') {

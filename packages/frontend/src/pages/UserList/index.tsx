@@ -3,17 +3,7 @@ import { Table, Input, Space, Button, Card, message, Form } from 'antd';
 import type { ColumnsType, TablePaginationConfig } from 'antd/es/table';
 import type { FilterValue } from 'antd/es/table/interface';
 import { SearchOutlined } from '@ant-design/icons';
-import { getUserList, freezeUser } from '@services/user';
-
-export interface UserData {
-  id: string;
-  username: string;
-  email: string;
-  nickName: string;
-  phoneNumber: string;
-  role: string;
-  createdAt: string;
-}
+import { getUserList, freezeUser, UserData } from '@services/user';
 
 interface TableParams {
   pagination?: TablePaginationConfig;
@@ -34,7 +24,7 @@ interface SearchParams {
 export function UserList() {
   const [form] = Form.useForm<SearchParams>();
   const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState<UserData[]>([]);
+  const [userData, setUserData] = useState<Array<UserData>>([]);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -51,8 +41,8 @@ export function UserList() {
         page: tableParams.pagination?.current,
         pageSize: tableParams.pagination?.pageSize
       });
-      const { data, total } = response.data;
-      setUserData(data);
+      const { users, total } = response;
+      setUserData(users);
       setTableParams(prev => ({
         ...prev,
         pagination: {
@@ -83,7 +73,7 @@ export function UserList() {
     }
   };
 
-  const columns: ColumnsType<UserData> = [
+  const columns: ColumnsType = [
     {
       title: '用户名',
       dataIndex: 'username',
@@ -175,7 +165,7 @@ export function UserList() {
         </Form.Item>
       </Form>
 
-      <Table<UserData>
+      <Table
         columns={columns}
         dataSource={userData}
         rowKey="id"

@@ -11,6 +11,7 @@ import { UpdateUserInfo } from '@pages/updateUserInfo';
 import { Home } from '@pages/home'
 import { UserList } from '@pages/UserList';
 import { Menu } from './components/Menu';
+import { BookingManage } from './pages/bookingManage';
 
 const routes = [
   {
@@ -24,7 +25,7 @@ const routes = [
         children: [
           {
             path: "/",
-            element: <Navigate to="/userList" />,
+            element: <Navigate to="./userList" />,
           },
           {
             path: "userList",
@@ -37,6 +38,10 @@ const routes = [
           {
             path: "update",
             element: <UpdateUserInfo />,
+          },
+          {
+            path: "bookManage",
+            element: <BookingManage />,
           }
         ]
       }

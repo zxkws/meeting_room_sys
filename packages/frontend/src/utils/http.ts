@@ -24,15 +24,18 @@ instance.interceptors.response.use((response) => {
   const { data, config } = error.response;
   if (data.code === 401 && !config.url.includes('/user/refresh')) {
     const res = await refreshToken(localStorage.getItem('refreshToken') || '');
-    if (res.status === 200) {
-      localStorage.setItem('accessToken', res.data.accessToken);
-      localStorage.setItem('refreshToken', res.data.refreshToken);
+    if (res.accessToken && res.refreshToken) {
+      localStorage.setItem('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
       return axios(config);
     } else {
-      message.error(res.data);
       localStorage.clear();
-      window.location.href = '/login';
+      window.location.href = '/meeting_room_sys/login';
     }
+  }
+  if(data.code === 403) {
+    message.error(data.message);
+    return Promise.reject(data);
   }
   return error.response;
 });

@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class PermissionGuard implements CanActivate {
       const curPermission = requiredPermissions[i];
       const found = permissions.find((item) => item.code === curPermission);
       if (!found) {
-        throw new UnauthorizedException('您没有访问该接口的权限');
+        throw new ForbiddenException('您没有访问该接口的权限');
       }
     }
 

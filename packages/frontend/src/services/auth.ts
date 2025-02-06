@@ -1,6 +1,7 @@
 
 import http from '@utils/http';
 import { LoginResponse } from '@/interfaces/auth';
+import { AxiosResponse } from 'axios';
 
 export const login = (data: { username: string; password: string }) => {
   return http.post<LoginResponse>('/user/login', data).then((res: unknown) => {
@@ -32,7 +33,7 @@ export const updatePassword = (data: {
   return http.post('/user/update-password', data);
 };
 
-export const refreshToken = (refreshToken: string) => {
+export const refreshToken = (refreshToken: string): Promise<{accessToken: string; refreshToken: string}> => {
   return http.get('/user/refresh-token', { params: { refreshToken } });
 };
 

@@ -27,6 +27,7 @@ export class UserController {
   private configService: ConfigService;
 
   @Get('refresh-token')
+  @RequireLogin()
   async refreshToken(@Query('refreshToken') refreshToken: string) {
     try {
       const decoded = this.jwtService.verify(refreshToken);
@@ -110,13 +111,26 @@ export class UserController {
 
   @RequirePermission('user:list')
   @Post('list')
+  @RequireLogin()
   list(@Body() listDto: { page?: number; pageSize?: number; username?: string; nickName?: string; email?: string; phoneNumber?: string }) {
     return this.userService.list(listDto);
   }
 
+  @RequireLogin()
   @RequirePermission('user:freeze')
   @Post('freeze')
   freeze(@Body() freezeDto: { id: string }) {
     return this.userService.freeze(freezeDto);
+  }
+
+  @RequireLogin()
+  @Post('info')
+  info(@UserInfo('userId') userId: number) {
+    return this.userService.findUserById(userId);
+  }
+
+  @Post('init')
+  init() {
+    return this.userService.init();
   }
 }

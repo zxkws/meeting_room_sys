@@ -10,7 +10,8 @@ import { LoginUserVo } from './vo/login-user.vo';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserInfo } from 'src/custom.decorator';
+import { Permission } from './entities/permission.entity';
+import { Role } from './entities/role.entity';
 
 @Injectable()
 export class UserService {
@@ -210,50 +211,6 @@ export class UserService {
     }
   }
 
-  // async adminList(adminListDto: AdminListDto) {
-  //   const { page = 1, limit = 10 } = adminListDto;
-
-  //   try {
-  //     const [admins, total] = await this.userRepository.findAndCount({
-  //       where: { isAdmin: true },
-  //       skip: (page - 1) * limit,
-  //       take: limit,
-  //       select: ['id', 'username', 'nickName', 'email', 'createTime', 'isFrozen'],
-  //     });
-
-  //     return {
-  //       admins,
-  //       total,
-  //       page,
-  //       limit,
-  //     };
-  //   } catch (e) {
-  //     this.logger.error(e, UserService);
-  //     throw new BadRequestException('获取管理员列表失败');
-  //   }
-  // }
-
-  // async adminFreeze(adminFreezeDto: AdminFreezeDto) {
-  //   const admin = await this.userRepository.findOneBy({
-  //     id: adminFreezeDto.id,
-  //     isAdmin: true,
-  //   });
-
-  //   if (!admin) {
-  //     throw new BadRequestException('管理员不存在');
-  //   }
-
-  //   admin.isFrozen = adminFreezeDto.isFrozen;
-
-  //   try {
-  //     await this.userRepository.save(admin);
-  //     return adminFreezeDto.isFrozen ? '管理员账号已冻结' : '管理员账号已解冻';
-  //   } catch (e) {
-  //     this.logger.error(e, UserService);
-  //     return '操作失败';
-  //   }
-  // }
-
   private readonly logger = new Logger(UserService.name);
 
   async create(createUserDto: CreateUserDto) {
@@ -285,5 +242,42 @@ export class UserService {
       this.logger.error(e, UserService);
       return '注册失败';
     }
+  }
+
+  @InjectRepository(Permission)
+  private permissionRepository: Repository<Permission>;
+
+  @InjectRepository(Role)
+  private roleRepository: Repository<Role>;
+
+  async init() {
+    if (!process.env.INIT_ENABLE) {
+      return false;
+    }
+    const permissions = new Permission();
+    permissions.description = '查询用户列表';
+    permissions.code = 'user:list';
+    await this.permissionRepository.save(permissions);
+
+    const permissions2 = new Permission();
+    permissions2.description = '冻结用户';
+    permissions2.code = 'user:freeze';
+    await this.permissionRepository.save(permissions2);
+
+    const role = new Role();
+    role.name = 'admin';
+    role.permissions = [permissions];
+    await this.roleRepository.save(role);
+
+    const user = new User();
+    user.username = 'admin';
+    user.password = md5('123456');
+    user.email = 'admin@admin.com';
+    user.nickName = '管理员';
+    user.isAdmin = true;
+    user.isFrozen = false;
+    user.roles = [role];
+
+    await this.userRepository.save(user);
   }
 }

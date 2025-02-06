@@ -25,18 +25,17 @@ export const Menu = () => {
             {
               key: '2',
               icon: <CalendarOutlined />,
-              label: <Link to="/meeting">预定管理</Link>,
+              label: <Link to="/bookManage">预定管理</Link>,
             },
             {
               key: '3',
               icon: <UserOutlined />,
-              label: <Link to="/userList">用户管理</Link>,
+              label: <Link to="/userList">用户列表</Link>,
             },
             {
               key: '4',
               icon: <BarChartOutlined />,
               label: <Link to="/statistics">统计</Link>,
-              disabled: true,
             },
           ]}
         />

@@ -10,8 +10,6 @@ import { ConfigService } from '@nestjs/config';
     {
       provide: 'REDIS_CLIENT',
       useFactory: async (configService: ConfigService) => {
-        console.log('999999999999', configService);
-        console.log(configService.get('redis_host'), configService.get('redis_port'), configService.get('redis_db'), configService.get('redis_password'));
         const client = createClient({
           socket: {
             host: configService.get('redis_host'),

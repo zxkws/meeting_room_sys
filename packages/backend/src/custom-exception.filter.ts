@@ -9,12 +9,13 @@ export class CustomExceptionFilter implements ExceptionFilter {
     const res = exception.getResponse() as { message: string[] };
     const status = exception.getStatus();
     const message = exception.message;
+
     response
       .status(status)
       .json({
         code: status,
         message,
-        data: res?.message?.join(',') ?? exception.message,
+        data: res?.message?.join?.(',') ?? exception.message,
       })
       .end();
   }

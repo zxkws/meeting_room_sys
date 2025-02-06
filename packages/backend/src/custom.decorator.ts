@@ -1,6 +1,5 @@
 import { createParamDecorator, ExecutionContext, SetMetadata } from '@nestjs/common';
 import { Request } from 'express';
-
 export const RequirePermission = (...permissions: string[]) => {
   return SetMetadata('require-permission', permissions);
 };
