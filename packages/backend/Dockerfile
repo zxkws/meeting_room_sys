@@ -14,8 +14,6 @@ COPY . .
 
 RUN pnpm build
 
-RUN ls -la
-
 FROM node:23-alpine3.19 AS production-stage
 
 COPY --from=build-stage /app/dist /app
@@ -28,8 +26,6 @@ RUN npm config set registry https://registry.npmmirror.com/
 RUN npm install pnpm -g
 
 RUN pnpm install
-
-RUN ls -la
 
 EXPOSE 3000
 

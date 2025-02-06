@@ -1,7 +1,6 @@
 
 import http from '@utils/http';
 import { LoginResponse } from '@/interfaces/auth';
-import { AxiosResponse } from 'axios';
 
 export const login = (data: { username: string; password: string }) => {
   return http.post<LoginResponse>('/user/login', data).then((res: unknown) => {
